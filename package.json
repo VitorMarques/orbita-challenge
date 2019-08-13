@@ -1,0 +1,33 @@
+{
+    "name": "orbita-challenge",
+    "version": "0.0.1",
+    "private": true,
+    "author": "Vitor Marques <vitormarques.sa@gmail.com>",
+    "repository": "https://github.com/VitorMarques/orbita-challenge",
+    "scripts": {
+        "start": "node ./bin/www",
+        "test": ""
+    },
+    "dependencies": {
+        "compression": "~1.7.4",
+        "consign": "~0.1.6",
+        "cookie-parser": "~1.4.4",
+        "cors": "~2.8.5",
+        "debug": "~2.6.9",
+        "express": "~4.16.1",
+        "helmet": "~3.20.0",
+        "morgan": "~1.9.1",
+        "mysql2": "~1.6.5",
+        "sequelize": "~5.13.1",
+        "winston": "~3.2.1"
+    },
+    "devDependencies": {
+        "prettier": "^1.18.2"
+    },
+    "prettier": {
+        "singleQuote": false,
+        "tabWidth": 4,
+        "bracketSpacing": false,
+        "arrowParens": "always"
+    }
+}
