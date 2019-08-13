@@ -3,7 +3,7 @@ const winston = require("winston");
 module.exports = new winston.createLogger({
     transports: [
         new winston.transports.File({
-            level: "debug",
+            level: "info",
             filename: "logs/orbita-challenge.log",
             maxsize: 1048576,
             json: false,
