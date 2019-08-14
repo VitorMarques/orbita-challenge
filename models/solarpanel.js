@@ -1,13 +1,39 @@
-/*const db = require("../config/dbConfig");
+module.exports = (app) => {
+    const sqlUtil = app.util.sqlutil;
+    const conn = app.config.dbconfig;
 
-class User extends Model {}
+    const table = "solar_data";
+    const fields = [
+        "provider",
+        "installation_dt",
+        "system_size",
+        "zip_code",
+        "state",
+        "cost"
+    ];
+    const rules = [
+        {
+            state: "ME"
+        }
+    ];
 
-User.init(
-    {
-        id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-        name: {type: Sequelize.STRING, allowNull: false},
-        email: {type: Sequelize.STRING, allowNull: false, unique: true},
-        state: {type: Sequelize.STRING, allowNull: false}
-    },
-    {db, modelName: "user"}
-);*/
+    const SolarPanelModel = {
+        findAll: () => {
+            return new Promise((resolve, reject) => {
+                try {
+                    const results = sqlUtil.execSelect(
+                        fields,
+                        table,
+                        rules,
+                        conn
+                    );
+                    resolve(results);
+                } catch (err) {
+                    reject(err);
+                }
+            });
+        }
+    };
+
+    return SolarPanelModel;
+};

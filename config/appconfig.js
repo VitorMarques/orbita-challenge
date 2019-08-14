@@ -1,6 +1,6 @@
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-const log = require("./logConfig");
+const log = require("./logconfig");
 const cors = require("cors");
 const compression = require("compression");
 const helmet = require("helmet");
