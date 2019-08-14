@@ -7,7 +7,8 @@ module.exports = {
                 ? "orbita_challenge"
                 : "orbita_challenge_test",
         username: "root",
-        password: "root"
+        password: "root",
+        poolSize: 20
     },
     LOG_FORMAT: {
         http:

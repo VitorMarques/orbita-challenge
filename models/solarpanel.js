@@ -1,33 +1,26 @@
 module.exports = (app) => {
     const sqlUtil = app.util.sqlutil;
-    const conn = app.config.dbconfig;
 
     const table = "solar_data";
-    const fields = [
-        "provider",
-        "installation_dt",
-        "system_size",
-        "zip_code",
-        "state",
-        "cost"
-    ];
-    const rules = [
-        {
-            state: "ME"
-        }
-    ];
+    const fields = ["id", "provider", "installation_dt", "system_size", "zip_code", "state", "cost"];
+    const rules = [{state: "FL"}];
 
     const SolarPanelModel = {
         findAll: () => {
             return new Promise((resolve, reject) => {
                 try {
-                    const results = sqlUtil.execSelect(
-                        fields,
-                        table,
-                        rules,
-                        conn
-                    );
+                    const results = sqlUtil.select(fields, table, rules);
                     resolve(results);
+                } catch (err) {
+                    reject(err);
+                }
+            });
+        },
+        findById: (paramId) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    const result = sqlUtil.select(null, table, [{id: paramId}]);
+                    resolve(result);
                 } catch (err) {
                     reject(err);
                 }

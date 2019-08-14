@@ -1,43 +1,46 @@
-module.exports = () => {
+module.exports = (app) => {
+    var pool = app.config.dbconfig;
+    var log = app.config.logconfig;
+
     const sqlUtil = {
-        execSelect: (fields, table, params, conn) => {
-            if (conn) conn.connect((err) => console.error(err));
+        select: (fields, table, conditions) => {
+            const sqlFields = fields ? [...fields] : "*";
+            let sql = `SELECT ${sqlFields} FROM ${table} `;
+            if (conditions) sql = where(sql, conditions);
 
-            let sql = `SELECT ${[...fields]} FROM ${table} `;
-            if (params) sql = addParamsToQuery(sql, params);
+            return execute(sql, pool, log);
+        },
+        insert: async (fields, table, conditions) => {},
+        update: async (fields, table, conditions) => {},
+        delete: (table, conditions) => {
+            let sql = `DELETE FROM ${table}`;
+            if (conditions) sql = where(sql, conditions);
 
-            conn.query(sql, (err, results) => {
-                if (err) throw err;
-                conn.end();
-                return results;
-            });
+            return execute(sql, pool, log);
         }
     };
 
     return sqlUtil;
 };
 
-function addParamsToQuery(sql, params) {
+function where(sql, conditions) {
     let indice = 0;
-    for (const param of params) {
+    for (const condition of conditions) {
         if (indice === 0) {
-            sql =
-                sql +
-                " WHERE " +
-                Object.keys(param)[0] +
-                " = '" +
-                Object.values(param)[0] +
-                "'";
+            sql = sql + ` WHERE ${Object.keys(condition)[0]} = '${Object.values(condition)[0]}'`;
         } else {
-            sql =
-                sql +
-                " AND " +
-                Object.keys(param)[0] +
-                " = '" +
-                Object.values(param)[0] +
-                "'";
+            sql = sql + ` AND ${Object.keys(condition)[0]} = '${Object.values(condition)[0]}'`;
         }
         indice++;
     }
     return sql;
+}
+
+async function execute(sql, pool, log) {
+    try {
+        return await pool.query(sql);
+    } catch (err) {
+        log.error(err);
+        throw err;
+    }
 }

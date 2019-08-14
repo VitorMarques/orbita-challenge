@@ -5,8 +5,9 @@
     "author": "Vitor Marques <vitormarques.sa@gmail.com>",
     "repository": "https://github.com/VitorMarques/orbita-challenge",
     "scripts": {
-        "start": "NODE_ENV=development && node ./bin/www",
-        "test": ""
+        "start": "cross-env NODE_ENV=development node ./bin/www",
+        "test": "",
+        "debug": "cross-env NODE_ENV=development node --nolazy --inspect-brk=9229 ./bin/www"
     },
     "dependencies": {
         "compression": "~1.7.4",
@@ -21,12 +22,15 @@
         "winston": "~3.2.1"
     },
     "devDependencies": {
+        "cross-env": "^5.2.0",
         "prettier": "^1.18.2"
     },
     "prettier": {
         "singleQuote": false,
         "tabWidth": 4,
         "bracketSpacing": false,
-        "arrowParens": "always"
+        "arrowParens": "always",
+        "printWidth": 120,
+        "endOfLine": "auto"
     }
 }
