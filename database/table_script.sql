@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS user(
 	id int not null auto_increment,
-    nome varchar(255) not null,
+    name varchar(255) not null,
     email varchar(255) not null unique,
     state varchar(255) not null,
     primary key(id)

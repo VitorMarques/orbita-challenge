@@ -25,6 +25,37 @@ module.exports = (app) => {
                     reject(err);
                 }
             });
+        },
+        create: (solarPanel) => {
+            return new Promise((resolve, reject) => {
+                fields.splice(0, 1) /*remove the id field*/;
+                try {
+                    const result = sqlUtil.insert(solarPanel, table, fields);
+                    resolve(result);
+                } catch (err) {
+                    reject(err);
+                }
+            });
+        },
+        update: (solarPanel, paramId) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    const result = sqlUtil.update(solarPanel, table, [{id: paramId}]);
+                    resolve(result);
+                } catch (err) {
+                    reject(err);
+                }
+            });
+        },
+        delete: (paramId) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    const result = sqlUtil.delete(table, [{id: paramId}]);
+                    resolve(result);
+                } catch (err) {
+                    reject(err);
+                }
+            });
         }
     };
 

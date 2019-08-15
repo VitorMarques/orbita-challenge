@@ -25,6 +25,6 @@ module.exports = (app) => {
             solarPanelController.update(req, res, next);
         })
         .delete((req, res, next) => {
-            solarPanelController.remove(req, res, next);
+            solarPanelController.delete(req, res, next);
         });
 };

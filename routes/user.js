@@ -19,9 +19,6 @@ module.exports = (app) => {
         .get((request, response) => {
             userController.findOne(request, response);
         })
-        .put((request, response) => {
-            userController.update(request, response);
-        })
         .delete((request, response) => {
             userController.remove(request, response);
         });
