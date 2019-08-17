@@ -17,6 +17,7 @@ consign(consignOptions)
     .then("util")
     .then("middleware")
     .then("models")
+    .then("controllers/genericcontroller.js")
     .then("controllers")
     .then("routes")
     .into(app);
