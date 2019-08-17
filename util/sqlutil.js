@@ -5,7 +5,7 @@ module.exports = (app) => {
     const sqlUtil = {
         select: (fields, table, conditions) => {
             const sqlFields = fields ? [...fields] : "*";
-            let sql = `SELECT ${sqlFields} FROM ${table} `;
+            let sql = `SELECT ${sqlFields} FROM ${table}`;
             if (conditions) sql = where(sql, conditions);
 
             return execute(sql, pool, log);
@@ -17,7 +17,7 @@ module.exports = (app) => {
         },
         update: (data, table, conditions) => {
             if (!data) return;
-            let sql = `UPDATE ${table} SET `;
+            let sql = `UPDATE ${table} `;
             sql = set(sql, data);
             sql = where(sql, conditions);
 
@@ -40,7 +40,7 @@ function set(sql, data) {
 
     for (let i = 0; i < values.length; i++) {
         if (i === 0) {
-            sql = sql + ` ${fields[i]} = ${values[i]} `;
+            sql = sql + ` SET ${fields[i]} = ${values[i]} `;
         } else {
             sql = sql + ` , ${fields[i]} = ${values[i]} `;
         }
@@ -49,14 +49,15 @@ function set(sql, data) {
 }
 
 function where(sql, conditions) {
-    let i = 0;
-    for (const condition of conditions) {
+    const fields = Object.keys(conditions);
+    const values = Object.values(conditions);
+
+    for (let i = 0; i < values.length; i++) {
         if (i === 0) {
-            sql = sql + ` WHERE ${Object.keys(condition)[i]} = '${Object.values(condition)[i]}'`;
+            sql = sql + ` WHERE ${fields[i]} = '${values[i]}'`;
         } else {
-            sql = sql + ` AND ${Object.keys(condition)[i]} = '${Object.values(condition)[i]}'`;
+            sql = sql + ` AND ${fields[i]} = '${values[i]}'`;
         }
-        i++;
     }
     return sql;
 }

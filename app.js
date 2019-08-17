@@ -15,6 +15,7 @@ app.use(express.urlencoded({extended: true}));
 consign(consignOptions)
     .include("config")
     .then("util")
+    .then("middleware")
     .then("models")
     .then("controllers")
     .then("routes")

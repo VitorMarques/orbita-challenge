@@ -1,9 +1,10 @@
 module.exports = (app) => {
     const solarPanelController = app.controllers.solarpanel;
+    const tokenValidator = app.middleware.tokenvalidator;
 
     app.route("/api/solarpanels/")
         .all((req, res, next) => {
-            //verificar permissao??
+            //tokenValidator.validate(req, res, next);
             next();
         })
         .get((req, res, next) => {
@@ -15,7 +16,7 @@ module.exports = (app) => {
 
     app.route("/api/solarpanels/:id")
         .all((req, res, next) => {
-            //verificar permissao??
+            //tokenValidator.validate(req, res, next);
             next();
         })
         .get((req, res, next) => {
